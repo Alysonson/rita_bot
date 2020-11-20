@@ -96,3 +96,13 @@ nlu:
     - consultar processo
     - meu processo
     - ver processo
+
+- intent: numero_processo
+  examples: |
+    - 003054/2020
+    - 100116/2020
+    - 100100/2020
+    - 01/2020
+    - 123/2017
+    
+    
