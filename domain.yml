@@ -27,6 +27,5 @@ responses:
   - text: I am a bot, powered by Rasa.
   utter_consultar_processo:
   - text: Qual o número do processo que você deseja consultar?
-  
 actions:
 - localizar_processo
