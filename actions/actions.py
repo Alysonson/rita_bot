@@ -33,28 +33,35 @@ from typing import Any, Text, Dict, List
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 
+
 class ActionLocalizarProcesso(Action):
     def name(self) -> Text:
-        return "localizar_processo"
+        return "action_localizar_processo"
 
     def run(self, dispatcher: CollectingDispatcher,
-    tracker: Tracker,
-    domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
         processos = pd.read_csv("data/processos_eventos.csv", sep=";")
+
+        processos.to_csv('teste.csv')
 
         processo_id = tracker.latest_message['text']
 
         numero, ano = processo_id.split("/")
 
-        processo = processos[(processos['NumeroProcesso'] == int(numero)) & (processos['AnoProcesso'] == int(ano))]
+        processo = processos[(processos['NumeroProcesso'] == int(
+            numero)) & (processos['AnoProcesso'] == int(ano))]
 
         try:
             ret_numero = processo['NumeroProcesso'].values[0]
             ret_ano = processo['AnoProcesso'].values[0]
             ret_assunto = processo['Assunto'].values[0]
+
+            dispatcher.utter_message(text="Encontrei um processo com número {}, ano {}, assunto {}".format(
+                ret_numero, ret_ano, ret_assunto))
         except:
-            dispatcher.utter_message(text="Não encontrei o seu processo, procurei ({}) {}/{}".format(processo_id, numero, ano))
-        else:
-            dispatcher.utter_message(text="Encontrei um processo com número {}, ano {}, assunto {}".format(ret_numero, ret_ano, ret_assunto))
-    
+            dispatcher.utter_message(
+                text="Não encontrei o seu processo, procurei ({}) {}/{}".format(processo_id, numero, ano))
+
         return []

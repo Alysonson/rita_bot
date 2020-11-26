@@ -16,6 +16,6 @@ stories:
   - intent: consultar_processo
   - action: utter_consultar_processo
   - intent: numero_processo
-  - action: localizar_processo
+  - action: action_localizar_processo
   - action: utter_greet
   
