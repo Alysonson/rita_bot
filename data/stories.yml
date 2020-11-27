@@ -4,18 +4,11 @@ stories:
 
 - story: happy path
   steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_great
-  - action: utter_happy
-
-- story: consultar processo
-  steps:
-  - intent: greet
-  - action: utter_greet
+  - intent: bem_vindo
+  - action: utter_bem_vindo
   - intent: consultar_processo
   - action: utter_consultar_processo
   - intent: numero_processo
-  - action: action_localizar_processo
-  - action: utter_greet
+  - action: action_localizar_processo  
+
   
