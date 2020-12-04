@@ -2,7 +2,7 @@ import pandas as pd
 
 class DBCarregador():
     def __init__(self):
-        self.df_processos = pd.read_csv("data/processos_eventos.csv", sep="\t", encoding="latin9")
+        self.df_processos = pd.read_csv("teste.csv", sep=",", encoding="latin9")
         #self.df_informacoes = pd.read_csv("data/informacoes.csv", sep=";")
         #self.df_contatos_setor = pd.read_csv("data/contatos_setor.csv", sep=";")
 

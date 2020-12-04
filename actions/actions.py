@@ -63,11 +63,12 @@ class ActionLocalizarProcesso(Action):
 
             dispatcher.utter_message(text="Encontrei um processo com número {}, ano {}, assunto {}.".format(
                 ret_numero, ret_ano, ret_assunto))
+            dispatcher.utter_template('utter_quais_opcoes', tracker)
         except:
             dispatcher.utter_message(
-                text="Não encontrei o seu processo, procurei ({}) {}/{}".format(processo_id, numero, ano))
-
+                text="Não encontrei o seu processo, procurei pelo processo ({}) {}/{}. Por favor, informe um processo existente.".format(processo_id, numero, ano))
         return []
+
 
 class ActionUltimaInformacao(Action):
     def name(self) -> Text:

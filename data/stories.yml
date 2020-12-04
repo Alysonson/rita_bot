@@ -9,7 +9,7 @@ stories:
   - action: utter_consultar_processo
   - intent: numero_processo
   - action: action_localizar_processo
-  - action: utter_quais_opcoes
+
 
 - story: consultar processo
   steps:
