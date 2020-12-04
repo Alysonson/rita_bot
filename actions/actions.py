@@ -26,6 +26,8 @@
 #
 #         return []
 
+import re
+
 import pandas as pd
 
 from typing import Any, Text, Dict, List
@@ -33,30 +35,31 @@ from typing import Any, Text, Dict, List
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 
+from .database import DBCarregador
+
+
+db = DBCarregador()
+dados_usuarios = {}
 
 class ActionLocalizarProcesso(Action):
     def name(self) -> Text:
         return "action_localizar_processo"
 
+    def separar_numero_ano(self, id_processo):
+        numero, ano = re.search(r"(\d+)[^0-9]+(\d+)",id_processo).groups()
+        return numero, ano
+
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
-        processos = pd.read_csv("data/processos_eventos.csv", sep=";")
-
-        processos.to_csv('teste.csv')
-
         processo_id = tracker.latest_message['text']
 
-        numero, ano = processo_id.split("/")
-
-        processo = processos[(processos['NumeroProcesso'] == int(
-            numero)) & (processos['AnoProcesso'] == int(ano))]
+        numero, ano = self.separar_numero_ano(processo_id)
+        dados_usuarios[tracker.sender_id] = {"numero_processo":numero, "ano_processo":ano}
 
         try:
-            ret_numero = processo['NumeroProcesso'].values[0]
-            ret_ano = processo['AnoProcesso'].values[0]
-            ret_assunto = processo['Assunto'].values[0]
+            ret_numero, ret_ano, ret_assunto = db.get_processo(numero, ano)
 
             dispatcher.utter_message(text="Encontrei um processo com número {}, ano {}, assunto {}.".format(
                 ret_numero, ret_ano, ret_assunto))
@@ -74,7 +77,11 @@ class ActionUltimaInformacao(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
+        dispatcher.utter_message(text=dados_usuarios[tracker.sender_id]["numero_processo"])
+        dispatcher.utter_message(text=dados_usuarios[tracker.sender_id]["ano_processo"])
+
         try:
+            
             dispatcher.utter_message(text="A última peça juntada ao processo XXXXXX/XXXX foi publicada no dia XX/XX/XXXX pelo setor XXX (Evento 9). Para visualizar a peça processual acesse o link www.tce.rn.gov.br/processo/xxxxx.pdf")
         except:
             dispatcher.utter_message(
