@@ -1,92 +1,15 @@
 version: "2.0"
-
+ 
 nlu:
-- intent: greet
+- intent: bem_vindo
   examples: |
-    - hey
-    - hello
-    - hi
     - oi
     - ola
     - bom dia
     - boa noite
+    - boa tarde
     - alguem
     - iai
-    - ea
-
-- intent: goodbye
-  examples: |
-    - good afternoon
-    - cu
-    - good by
-    - cee you later
-    - good night
-    - bye
-    - goodbye
-    - have a nice day
-    - see you around
-    - bye bye
-    - see you later
-
-- intent: affirm
-  examples: |
-    - yes
-    - y
-    - indeed
-    - of course
-    - that sounds good
-    - correct
-
-- intent: deny
-  examples: |
-    - no
-    - n
-    - never
-    - I don't think so
-    - don't like that
-    - no way
-    - not really
-
-- intent: mood_great
-  examples: |
-    - perfect
-    - great
-    - amazing
-    - feeling like a king
-    - wonderful
-    - I am feeling very good
-    - I am great
-    - I am amazing
-    - I am going to save the world
-    - super stoked
-    - extremely good
-    - so so perfect
-    - so good
-    - so perfect
-
-- intent: mood_unhappy
-  examples: |
-    - my day was horrible
-    - I am sad
-    - I don't feel very well
-    - I am disappointed
-    - super sad
-    - I'm so sad
-    - sad
-    - very sad
-    - unhappy
-    - not good
-    - not very good
-    - extremly sad
-    - so saad
-    - so sad
-
-- intent: bot_challenge
-  examples: |
-    - are you a bot?
-    - are you a human?
-    - am I talking to a bot?
-    - am I talking to a human?
 
 - intent: consultar_processo
   examples: |
@@ -104,5 +27,52 @@ nlu:
     - 100100/2020
     - 01/2020
     - 123/2017
-    
+
+- intent: quais_opcoes
+  examples: |
+    - quais são as opções
+    - quais opções eu tenho?
+
+- intent: opcao1
+  examples: |
+    - opcao1
+    - quero consultar a última informação do processo
+    - quero consultar a última informação
+    - consultar a última informação
+    - consultar a última informação do processo
+
+- intent: opcao2
+  examples: |
+    - opcao2
+    - Consultar a informação do corpo técnico
+    - quero consultar a informação do corpo técnico
+
+- intent: opcao3
+  examples: |
+    - opcao3
+    - Consultar a informação do Ministério Público de Contas
+    - quero consultar a informação do Ministério Público de Contas
+
+- intent: opcao4
+  examples: |
+    - opcao4
+    - Consultar a Decisão do processo
+    - consultar a decisão
+    - consultar o acórdão
+    - quero consultar a decisão do processo
+    - quero consultar a decisão
+    - quero obter a decisão
+    - quero consultar o acórdão
+    - quero obter o acórdão
+
+- intent: opcao5
+  examples: |
+    - opcao5
+    - quero obter dados para contato do setor atual do processo
+
+- intent: opcao6
+  examples: |
+    - opcao6
+    - quero obter o contato do gabinete do Relator do processo
+    - Qual o contato do gabinete do Relator?
     

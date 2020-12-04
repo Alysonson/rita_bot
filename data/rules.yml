@@ -2,12 +2,9 @@ version: "2.0"
 
 rules:
 
-- rule: Say goodbye anytime the user says goodbye
+- rule: Diga ola sempre que o usuario disser ola
   steps:
-  - intent: goodbye
-  - action: utter_goodbye
+  - intent: bem_vindo
+  - action: utter_bem_vindo
+  - action: utter_consultar_processo
 
-- rule: Say 'I am a bot' anytime the user challenges
-  steps:
-  - intent: bot_challenge
-  - action: utter_iamabot

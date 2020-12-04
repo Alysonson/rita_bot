@@ -1,0 +1,23 @@
+<html>
+    <head>
+    <meta charset="UTF-8">
+    <title>Hello World</title>
+    </head>
+        <body>
+            <h1>Hello World!</h1>
+        	<div id="webchat"/>
+				<script src="https://cdn.jsdelivr.net/npm/rasa-webchat@0.11.11/lib/index.js"></script>
+				<script>
+				  WebChat.default.init({
+				    selector: "#webchat",
+				    initPayload: "/get_started",
+				    customData: {"language": "pt"},
+				    socketUrl: "http://localhost:5005",
+				    socketPath: "/socket.io/",
+				    title: "Bot Rita",
+				    subtitle: "Consulta de processos do TCE/RN",
+				  })
+
+				</script>
+        </body>
+</html>
