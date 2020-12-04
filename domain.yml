@@ -5,12 +5,48 @@ intents:
 - bem_vindo
 - consultar_processo
 - numero_processo
+- quais_opcoes
+- opcao1
+- opcao2
+- opcao3
+- opcao4
+- opcao5
+- opcao6
+
 responses:
   utter_bem_vindo:
-  - text: Olá! Em que posso ajudar?
+  - text: Olá! Meu nome é Rita, sua assistente virtual. Estou aqui para lhe ajudar
+      a obter informações sobre processos em tramitação no TCE/RN.
+
   utter_consultar_processo:
   - text: Qual o número do processo que você deseja consultar?
+
   utter_numero_processo:
   - text: Deseja consultar novo processo?
+
+  utter_quais_opcoes:
+  - buttons:
+    - payload: opcao1
+      title: Consultar a última informação do processo.
+    - payload: opcao2
+      title: Consultar a informação do corpo técnico.
+    - payload: opcao3
+      title: Consultar a informação do Ministério Público de Contas.
+    - payload: opcao4
+      title: Consultar a Decisão do processo.
+    - payload: opcao5
+      title: Obter o contato do setor atual do processo.
+    - payload: opcao6
+      title: Obter o contato do gabinete do Relator do processo.
+    - payload: consultar_processo
+      title: Consultar outro processo.
+    text: O que você deseja?
+  
 actions:
 - action_localizar_processo
+- action_ultima_informacao
+- action_informacao_corpo_tecnico
+- action_informacao_mptc
+- action_decisoes
+- action_contato_setor_atual
+- action_contato_gabinete_relator

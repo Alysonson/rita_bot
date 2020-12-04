@@ -6,9 +6,53 @@ stories:
   steps:
   - intent: bem_vindo
   - action: utter_bem_vindo
-  - intent: consultar_processo
   - action: utter_consultar_processo
   - intent: numero_processo
-  - action: action_localizar_processo  
+  - action: action_localizar_processo
+  - action: utter_quais_opcoes
 
-  
+- story: consultar processo
+  steps:
+  - intent: consultar_processo
+  - action: utter_consultar_processo
+
+- story: opcoes
+  steps:
+  - intent: quais_opcoes
+  - action: utter_quais_opcoes
+
+- story: opcao1
+  steps:
+  - intent: opcao1
+  - action: action_ultima_informacao
+  - action: utter_quais_opcoes
+
+- story: opcao2
+  steps:
+  - intent: opcao2
+  - action: action_informacao_corpo_tecnico
+  - action: utter_quais_opcoes
+
+- story: opcao3
+  steps:
+  - intent: opcao3
+  - action: action_informacao_mptc
+  - action: utter_quais_opcoes
+
+- story: opcao4
+  steps:
+  - intent: opcao4
+  - action: action_decisoes
+  - action: utter_quais_opcoes
+
+- story: opcao5
+  steps:
+  - intent: opcao5
+  - action: action_contato_setor_atual
+  - action: utter_quais_opcoes
+
+- story: opcao6
+  steps:
+  - intent: opcao6
+  - action: action_contato_gabinete_relator
+  - action: utter_quais_opcoes

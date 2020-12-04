@@ -6,4 +6,5 @@ rules:
   steps:
   - intent: bem_vindo
   - action: utter_bem_vindo
+  - action: utter_consultar_processo
 
