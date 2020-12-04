@@ -33,7 +33,7 @@ responses:
     - payload: opcao3
       title: Consultar a informação do Ministério Público de Contas.
     - payload: opcao4
-      title: Consultar a Decisão do processo.
+      title: Consultar a Decisão do processo. 
     - payload: opcao5
       title: Obter o contato do setor atual do processo.
     - payload: opcao6

@@ -132,7 +132,7 @@ class ActionDecisoes(Action):
                 text="Erro")
 
         return []
-
+ 
 
 class ActionContatoSetorAtual(Action):
     def name(self) -> Text:
