@@ -2,9 +2,8 @@ version: "2.0"
 
 rules:
 
-- rule: Diga ola sempre que o usuario disser ola
+- rule: Sempre finalize quando o usuario disser tchau
   steps:
-  - intent: bem_vindo
-  - action: utter_bem_vindo
-  - action: utter_consultar_processo
+  - intent: despedir
+  - action: utter_despedir
 

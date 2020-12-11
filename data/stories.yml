@@ -4,17 +4,50 @@ stories:
 
 - story: happy path
   steps:
-  - intent: bem_vindo
-  - action: utter_bem_vindo
-  - action: utter_consultar_processo
-  - intent: numero_processo
+  - intent: cumprimentar
+  - action: utter_cumprimentar
+  - action: utter_numero_processo
   - action: action_localizar_processo
+  - action: utter_continuar_conversa
+  - intent: afirmar
+  - action: utter_novo_processo  
+  - intent: negar
+  - action: utter_despedir  
 
+- story: despedir
+  steps:
+  - intent: despedir
+  - action: utter_despedir
+
+- story: fallback
+  steps:
+  - intent: out_of_scope
+  - action: utter_fallback
+
+- story: elogios1
+  steps:
+  - intent: elogios
+  - action: utter_elogios
+  - action: utter_continuar_conversa    
+
+- story: elogios2
+  steps:
+  - intent: cumprimentar
+  - action: utter_cumprimentar  
+  - intent: elogios
+  - action: utter_elogios
+  - action: utter_continuar_conversa 
+
+- story: ajuda
+  steps:
+  - intent: ajuda
+  - action: utter_ajuda 
 
 - story: consultar processo
   steps:
   - intent: consultar_processo
-  - action: utter_consultar_processo
+  - action: utter_numero_processo
+  - action: action_localizar_processo
 
 - story: opcoes
   steps:

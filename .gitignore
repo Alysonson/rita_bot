@@ -2,7 +2,7 @@ venv/
 env/
 
 *~
-*pyc
+**/*pyc
 *.egg
 *.eggs
 *.egg-info
