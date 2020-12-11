@@ -56,15 +56,25 @@ class ActionLocalizarProcesso(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
         processo_id = tracker.latest_message['text']
+        print(processo_id)
 
         self.numero, self.ano = self.separar_numero_ano(processo_id)
         dados_usuarios[tracker.sender_id] = {"numero_processo":self.numero, "ano_processo":self.ano}
 
         try:
-            ret_numero, ret_ano, ret_assunto, ret_relator, ret_maxEvent, ret_lastEvent, lastSector, ret_lastContato = db.get_processo(self.numero, self.ano)
+            ret_numero, ret_ano, ret_assunto, ret_relator, ret_maior_evento, ret_ultimo_evento, ret_ultimo_setor, ret_contato_setor, ret_contato_relator, ret_identificador_setor = db.get_processo(self.numero, self.ano)
+
+            dados_usuarios[tracker.sender_id]['assunto'] = ret_assunto
+            dados_usuarios[tracker.sender_id]['relator'] = ret_relator
+            dados_usuarios[tracker.sender_id]['maior_evento'] = ret_maior_evento
+            dados_usuarios[tracker.sender_id]['ultimo_evento'] = ret_ultimo_evento
+            dados_usuarios[tracker.sender_id]['ultimo_setor'] = ret_ultimo_setor
+            dados_usuarios[tracker.sender_id]['contato_setor'] = ret_contato_setor
+            dados_usuarios[tracker.sender_id]['contato_relator'] = ret_contato_relator
+            dados_usuarios[tracker.sender_id]['identificador_setor'] = ret_identificador_setor
 
             dispatcher.utter_message(text="O processo de número {}, ano {}, assunto {}, encontra-se atualmente no Gabinete do(a) Conselheiro(a) {}. Seu último evento é o de número {}. Sua última informação é: {}. O setor atual é {}, contato {}. ".format(
-                ret_numero, ret_ano, ret_assunto, ret_relator, ret_maxEvent, ret_lastEvent, lastSector, ret_lastContato))
+                ret_numero, ret_ano, ret_assunto, ret_relator, ret_maior_evento, ret_ultimo_evento, ret_ultimo_setor, ret_contato_setor))
             dispatcher.utter_template('utter_quais_opcoes', tracker)
         except:
             dispatcher.utter_message(
@@ -81,7 +91,14 @@ class ActionUltimaInformacao(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
         dispatcher.utter_message(text=dados_usuarios[tracker.sender_id]["numero_processo"])
-        dispatcher.utter_message(text=dados_usuarios[tracker.sender_id]["ano_processo"])
+        dispatcher.utter_message(text=dados_usuarios[tracker.sender_id]["assunto"])
+        dispatcher.utter_message(text=dados_usuarios[tracker.sender_id]["relator"])
+        dispatcher.utter_message(text=dados_usuarios[tracker.sender_id]["maior_evento"])
+        dispatcher.utter_message(text=dados_usuarios[tracker.sender_id]["ultimo_evento"])
+        dispatcher.utter_message(text=dados_usuarios[tracker.sender_id]["ultimo_setor"])
+        dispatcher.utter_message(text=dados_usuarios[tracker.sender_id]["contato_setor"])
+        dispatcher.utter_message(text=dados_usuarios[tracker.sender_id]["contato_relator"])
+        dispatcher.utter_message(text=dados_usuarios[tracker.sender_id]["identificador_setor"])
 
         try:
             
