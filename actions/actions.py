@@ -40,6 +40,8 @@ from .database import DBCarregador
 
 db = DBCarregador()
 dados_usuarios = {}
+ano = ""
+numero = ""
 
 class ActionLocalizarProcesso(Action):
     def name(self) -> Text:
@@ -55,14 +57,14 @@ class ActionLocalizarProcesso(Action):
 
         processo_id = tracker.latest_message['text']
 
-        numero, ano = self.separar_numero_ano(processo_id)
-        dados_usuarios[tracker.sender_id] = {"numero_processo":numero, "ano_processo":ano}
+        self.numero, self.ano = self.separar_numero_ano(processo_id)
+        dados_usuarios[tracker.sender_id] = {"numero_processo":self.numero, "ano_processo":self.ano}
 
         try:
-            ret_numero, ret_ano, ret_assunto = db.get_processo(numero, ano)
+            ret_numero, ret_ano, ret_assunto, ret_relator, ret_maxEvent, ret_lastEvent, lastSector, ret_lastContato = db.get_processo(self.numero, self.ano)
 
-            dispatcher.utter_message(text="Encontrei um processo com número {}, ano {}, assunto {}.".format(
-                ret_numero, ret_ano, ret_assunto))
+            dispatcher.utter_message(text="O processo de número {}, ano {}, assunto {}, encontra-se atualmente no Gabinete do(a) Conselheiro(a) {}. Seu último evento é o de número {}. Sua última informação é: {}. O setor atual é {}, contato {}. ".format(
+                ret_numero, ret_ano, ret_assunto, ret_relator, ret_maxEvent, ret_lastEvent, lastSector, ret_lastContato))
             dispatcher.utter_template('utter_quais_opcoes', tracker)
         except:
             dispatcher.utter_message(

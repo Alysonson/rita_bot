@@ -13,8 +13,14 @@ class DBCarregador():
         ret_numero = processo['NumeroProcesso'].values[0]
         ret_ano = processo['AnoProcesso'].values[0]
         ret_assunto = processo['Assunto'].values[0]
+        ret_relator = processo['Relator'].values[0]
+        ret_maxEvent = max(processo['Evento'].values)
+        ret_lastEvent = processo['Informacao'].values[-1:]
+        ret_lastSector = processo['Setor'].values[-1:]
+        ret_lastContato = processo['Contato'].values[-1:]
 
-        return ret_numero, ret_ano, ret_assunto
+        
+        return ret_numero, ret_ano, ret_assunto, ret_relator, ret_maxEvent, ret_lastEvent, ret_lastSector, ret_lastContato
 
     def get_informacao(self, numero, ano):
         pass
