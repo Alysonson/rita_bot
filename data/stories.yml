@@ -32,7 +32,9 @@ stories:
   steps:
   - intent: opcao2
   - action: action_informacoes_corpo_tecnico
-  - action: utter_opcoes_eventos
+
+- story: evento_opcoes
+  steps:
   - intent: numero_evento
   - action: action_informacao_corpo_tecnico
 
@@ -59,9 +61,3 @@ stories:
   - intent: opcao6
   - action: action_contato_gabinete_relator
   - action: utter_quais_opcoes
-
-
-- story: nenhum_evento
-  steps:
-  - action: utter_nenhum_evento
-  - action: utter_bem_vindo

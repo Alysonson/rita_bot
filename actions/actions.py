@@ -59,26 +59,30 @@ class ActionLocalizarProcesso(Action):
         print(processo_id)
 
         self.numero, self.ano = self.separar_numero_ano(processo_id)
-        dados_usuarios[tracker.sender_id] = {"numero_processo":self.numero, "ano_processo":self.ano}
+        print(self.numero)
+        
+        if self.numero and self.ano:
+            dados_usuarios[tracker.sender_id] = {"numero_processo":self.numero, "ano_processo":self.ano}
+            try:
+                ret_numero, ret_ano, ret_assunto, ret_relator, ret_maior_evento, ret_ultimo_evento, ret_ultimo_setor, ret_contato_setor, ret_contato_relator, ret_identificador_setor = db.get_processo(self.numero, self.ano)
 
-        try:
-            ret_numero, ret_ano, ret_assunto, ret_relator, ret_maior_evento, ret_ultimo_evento, ret_ultimo_setor, ret_contato_setor, ret_contato_relator, ret_identificador_setor = db.get_processo(self.numero, self.ano)
+                dados_usuarios[tracker.sender_id]['assunto'] = ret_assunto
+                dados_usuarios[tracker.sender_id]['relator'] = ret_relator
+                dados_usuarios[tracker.sender_id]['maior_evento'] = ret_maior_evento
+                dados_usuarios[tracker.sender_id]['ultimo_evento'] = ret_ultimo_evento
+                dados_usuarios[tracker.sender_id]['ultimo_setor'] = ret_ultimo_setor
+                dados_usuarios[tracker.sender_id]['contato_setor'] = ret_contato_setor
+                dados_usuarios[tracker.sender_id]['contato_relator'] = ret_contato_relator
+                dados_usuarios[tracker.sender_id]['identificador_setor'] = ret_identificador_setor
 
-            dados_usuarios[tracker.sender_id]['assunto'] = ret_assunto
-            dados_usuarios[tracker.sender_id]['relator'] = ret_relator
-            dados_usuarios[tracker.sender_id]['maior_evento'] = ret_maior_evento
-            dados_usuarios[tracker.sender_id]['ultimo_evento'] = ret_ultimo_evento
-            dados_usuarios[tracker.sender_id]['ultimo_setor'] = ret_ultimo_setor
-            dados_usuarios[tracker.sender_id]['contato_setor'] = ret_contato_setor
-            dados_usuarios[tracker.sender_id]['contato_relator'] = ret_contato_relator
-            dados_usuarios[tracker.sender_id]['identificador_setor'] = ret_identificador_setor
-
-            dispatcher.utter_message(text="O processo de número {}, ano {}, assunto {}, encontra-se atualmente no Gabinete do(a) Conselheiro(a) {}. Seu último evento é o de número {}. Sua última informação é: {}. O setor atual é {}, contato {}. ".format(
-                ret_numero, ret_ano, ret_assunto, ret_relator, ret_maior_evento, ret_ultimo_evento, ret_ultimo_setor, ret_contato_setor))
-            #dispatcher.utter_template('utter_quais_opcoes', tracker)
-        except:
-            dispatcher.utter_message(
-                text="Não encontrei o seu processo, procurei pelo processo ({}) {}/{}. Por favor, informe um processo existente.".format(processo_id, numero, ano))
+                dispatcher.utter_message(text="O processo de número {}, ano {}, assunto {}, encontra-se atualmente no Gabinete do(a) Conselheiro(a) {}. Seu último evento é o de número {}. Sua última informação é: {}. O setor atual é {}, contato {}. ".format(
+                    ret_numero, ret_ano, ret_assunto, ret_relator, ret_maior_evento, ret_ultimo_evento, ret_ultimo_setor, ret_contato_setor))
+                #dispatcher.utter_template('utter_quais_opcoes', tracker)
+            except:
+                dispatcher.utter_message(
+                    text="Não encontrei o seu processo, procurei pelo processo ({}) {}/{}. Por favor, informe um processo existente.".format(processo_id, numero, ano))
+        else:
+            dispatcher.utter_message(text="Não encontrei processo com os termos selecionados.")
         return []
 
 
@@ -118,10 +122,11 @@ class ActionInformacoesCorpoTecnico(Action):
                 texto_resposta += "Evento {} - {}\n\n".format(r['evento'], r['resumo'])
             try:
                 dispatcher.utter_message(text=texto_resposta)
+                dispatcher.utter_message(template="utter_opcoes_eventos")
             except:
                 dispatcher.utter_message(text="Erro")
         else:
-            dispatcher.utter_template("utter_nenhum_evento", tracker)
+            dispatcher.utter_message(template="utter_nenhum_evento")
 
         return []
 
