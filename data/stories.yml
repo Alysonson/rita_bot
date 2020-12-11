@@ -11,14 +11,13 @@ stories:
 
 - story: despedir
   steps:
-  - intent: desp
-  steps:
-  - intent: canceedir
+  - intent: despedir
   - action: utter_despedir
 
 - story: cancelar
+  steps:
+  - intent: cancelar
   - action: utter_cancelar
-  - action: utter_continuar_conversa
 
 - story: fallback
   steps:
