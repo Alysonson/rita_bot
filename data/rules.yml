@@ -7,3 +7,8 @@ rules:
   - intent: despedir
   - action: utter_despedir
 
+- rule: Sempre pergunte o numero do processo
+  steps:
+  - intent: consultar_processo
+  - action: utter_qual_numero_processo
+

@@ -6,18 +6,19 @@ stories:
   steps:
   - intent: cumprimentar
   - action: utter_cumprimentar
-  - action: utter_numero_processo
+  - action: utter_qual_numero_processo
   - action: action_localizar_processo
-  - action: utter_continuar_conversa
-  - intent: afirmar
-  - action: utter_novo_processo  
-  - intent: negar
-  - action: utter_despedir  
 
 - story: despedir
   steps:
-  - intent: despedir
+  - intent: desp
+  steps:
+  - intent: canceedir
   - action: utter_despedir
+
+- story: cancelar
+  - action: utter_cancelar
+  - action: utter_continuar_conversa
 
 - story: fallback
   steps:
@@ -46,8 +47,7 @@ stories:
 - story: consultar processo
   steps:
   - intent: consultar_processo
-  - action: utter_numero_processo
-  - action: action_localizar_processo
+  - action: utter_qual_numero_processo
 
 - story: opcoes
   steps:

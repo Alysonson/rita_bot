@@ -12,6 +12,7 @@ intents:
 - negar
 - cancelar
 - consultar_processo
+- numero_processo
 - quais_opcoes
 - opcao1
 - opcao2
@@ -21,17 +22,18 @@ intents:
 - opcao6
 responses:
   utter_cumprimentar:
-  - text: Olá! Meu nome é Rita, sua assistente virtual. Estou aqui para lhe ajudar
-      a obter informações sobre processos em tramitação no TCE/RN.
+  - text: "Olá! Meu nome é Rita, sua assistente virtual. Estou aqui para lhe ajudar \ 
+          \n a obter informações sobre processos em tramitação no TCE/RN."
   utter_ajuda:
   - text: Estou aqui para lhe ajudar a obter informações sobre processos em tramitação no TCE/RN.
+  utter_cancelar:
+  - text: Operação cancelada
   utter_despedir:
   - text: "Foi um prazer te ajudar!\nSempre que precisar de mais informações sobre processos, volte aqui!\nAté logo!\n"
   - text: "Foi um prazer te ajudar!\nSempre que precisar, volte aqui!\nAté a próxima!\n"
   - text: "Foi um prazer te ajudar!\nQuando surgir alguma dúvida, volte aqui!\nAté mais!\n"  
   utter_fallback:
-  - text: "Desculpe, ainda não sei falar sobre isso ou talvez não tenha entendido muito bem\
-      \ \nVocê pode perguntar de novo de outro jeito?\n"
+  - text: "Desculpe, ainda não sei falar sobre isso ou talvez não tenha entendido muito bem\ \nVocê pode perguntar de novo de outro jeito?\n"
   - text: "Hummmm... Não sei se entendi. Pode escrever de outra forma?\n"
   - text: "Acho que não te entendi, você pode me perguntar de novo usando outras palavras?\n"
   - text: "Vamos tentar mais uma vez? Eu não consegui te entender direito, me pergunta de outro jeito?\n"
@@ -39,7 +41,7 @@ responses:
   - text: "Obrigada! É sempre bom dar e receber elogios ;)\n"
   utter_continuar_conversa:
   - text: Gostaria de saber algo mais?
-  utter_numero_processo:
+  utter_qual_numero_processo:
   - text: Qual o número do processo que você deseja consultar?
   utter_novo_processo:
   - text: Deseja consultar novo processo?
