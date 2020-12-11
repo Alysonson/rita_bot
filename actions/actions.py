@@ -75,7 +75,7 @@ class ActionLocalizarProcesso(Action):
 
             dispatcher.utter_message(text="O processo de número {}, ano {}, assunto {}, encontra-se atualmente no Gabinete do(a) Conselheiro(a) {}. Seu último evento é o de número {}. Sua última informação é: {}. O setor atual é {}, contato {}. ".format(
                 ret_numero, ret_ano, ret_assunto, ret_relator, ret_maior_evento, ret_ultimo_evento, ret_ultimo_setor, ret_contato_setor))
-            dispatcher.utter_template('utter_quais_opcoes', tracker)
+            #dispatcher.utter_template('utter_quais_opcoes', tracker)
         except:
             dispatcher.utter_message(
                 text="Não encontrei o seu processo, procurei pelo processo ({}) {}/{}. Por favor, informe um processo existente.".format(processo_id, numero, ano))
@@ -89,26 +89,41 @@ class ActionUltimaInformacao(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-
-        dispatcher.utter_message(text=dados_usuarios[tracker.sender_id]["numero_processo"])
-        dispatcher.utter_message(text=dados_usuarios[tracker.sender_id]["assunto"])
-        dispatcher.utter_message(text=dados_usuarios[tracker.sender_id]["relator"])
-        dispatcher.utter_message(text=dados_usuarios[tracker.sender_id]["maior_evento"])
-        dispatcher.utter_message(text=dados_usuarios[tracker.sender_id]["ultimo_evento"])
-        dispatcher.utter_message(text=dados_usuarios[tracker.sender_id]["ultimo_setor"])
-        dispatcher.utter_message(text=dados_usuarios[tracker.sender_id]["contato_setor"])
-        dispatcher.utter_message(text=dados_usuarios[tracker.sender_id]["contato_relator"])
-        dispatcher.utter_message(text=dados_usuarios[tracker.sender_id]["identificador_setor"])
+        #dispatcher.utter_message(text='Ultima informacao é {}'.format(dados_usuarios[tracker.sender_id]['ultimo_evento']))
 
         try:
-            
             dispatcher.utter_message(text="A última peça juntada ao processo XXXXXX/XXXX foi publicada no dia XX/XX/XXXX pelo setor XXX (Evento 9). Para visualizar a peça processual acesse o link www.tce.rn.gov.br/processo/xxxxx.pdf")
         except:
             dispatcher.utter_message(
                 text="Erro")
+            print("Aqui erro")
 
         return []
 
+
+class ActionInformacoesCorpoTecnico(Action):
+    def name(self) -> Text:
+        return "action_informacoes_corpo_tecnico"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        informacoes = db.get_informacoes_corpo_tecnico(dados_usuarios[tracker.sender_id]['numero_processo'], dados_usuarios[tracker.sender_id]['ano_processo'])
+        print(informacoes)
+
+        if len(informacoes):
+            texto_resposta = "Os eventos encontrados são os seguintes:\n\n"
+            for _,r in informacoes.iterrows():
+                texto_resposta += "Evento {} - {}\n\n".format(r['evento'], r['resumo'])
+            try:
+                dispatcher.utter_message(text=texto_resposta)
+            except:
+                dispatcher.utter_message(text="Erro")
+        else:
+            dispatcher.utter_template("utter_nenhum_evento", tracker)
+
+        return []
 
 class ActionInformacaoCorpoTecnico(Action):
     def name(self) -> Text:
@@ -118,8 +133,11 @@ class ActionInformacaoCorpoTecnico(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
+        evento = tracker.latest_message['text']
+        arquivo = db.get_informacao_corpo_tecnico(dados_usuarios[tracker.sender_id]['numero_processo'], dados_usuarios[tracker.sender_id]['ano_processo'], evento)
+
         try:
-            dispatcher.utter_message(text="O processo XXXXXX/XXXX possui a(s) seguinte(s) peça(s) juntada(s) aos autos pela unidade técnica XXX:")
+            dispatcher.utter_message(text="Encontrei o arquivo {}".format(arquivo))
         except:
             dispatcher.utter_message(
                 text="Erro")

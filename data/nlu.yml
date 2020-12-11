@@ -1,7 +1,7 @@
 version: "2.0"
  
 nlu:
-- intent: cumprimentar
+- intent: bem_vindo
   examples: |
     - oi
     - ola
@@ -10,102 +10,6 @@ nlu:
     - boa tarde
     - alguem
     - iai
-
-- intent: despedir
-  examples: |
-    - tchau
-    - adeus
-    - vlw
-    - flw
-    - até mais, bot
-    - bye
-
-- intent: out_of_scope
-  examples: |
-    - voce fala sobre o meio ambiente
-    - qual a origem do mundo
-    - vc gosta de carnaval
-    - batatinha quando nasce
-    - imbecil
-    - chata
-    - babaca
-    - bot feia
-    - bot, burra
-
-- intent: elogios
-  examples: |
-    - voce e muito educada
-    - me ajudou muito
-    - voce e demais
-    - voce e linda
-    - voce e maravilhosa
-    - vc e demais
-    - adorei voce
-    - amei voce
-    - adorei vc
-    - amei vc
-
-- intent: negar
-  examples: |
-    - nao
-    - nao quero
-    - escolhi errado
-    - falei errado
-    - duvida
-    - nao sei
-    - nenhum
-    - nao tenho
-
-- intent: ajuda
-  examples: |
-    - sobre o que voce sabe falar
-    - o que mais voce sabe falar
-    - quais assuntos voce fala
-    - o que voce sabe
-    - lista de assuntos possiveis
-    - quais as perguntas vc responde
-    - quais as perquisar voce responde
-    - quero ajuda
-    - meajuda
-    - meajude
-    - MEAJDA
-    - me ajuda
-    - me ajude
-    - ajuda eu
-    - menu
-
-- intent: afirmar
-  examples: |
-    - sim
-    - confirmo
-    - afirmo
-    - claro
-    - exato
-    - isso mesmo
-
-- intent: negar
-  examples: |
-    - nao
-    - nego
-    - cancelo
-    - negativo
-
-- intent: cancelar
-  examples: |
-    - desisto
-    - para
-    - cancela
-    - sai disso
-    - me tira daqui
-    - para com isso
-    - me tira disso
-    - quero cancelar
-    - saia dessa conversa
-    - nao quero mais isso
-    - cancele esta operacao
-    - nao quero compartilhar meus dados
-    - nao quero mais informar meus dados
-
 - intent: consultar_processo
   examples: |
     - gostaria de consultar um processo
@@ -114,7 +18,6 @@ nlu:
     - consultar processo
     - meu processo
     - ver processo
-
 - intent: numero_processo
   examples: |
     - 003054/2020
@@ -122,12 +25,17 @@ nlu:
     - 100100/2020
     - 01/2020
     - 123/2017
-
+- intent: numero_evento
+  examples: |
+    - 3
+    - 4
+    - 10
+    - 23
+    - 7
 - intent: quais_opcoes
   examples: |
     - quais são as opções
     - quais opções eu tenho?
-
 - intent: opcao1
   examples: |
     - opcao1
@@ -135,19 +43,16 @@ nlu:
     - quero consultar a última informação
     - consultar a última informação
     - consultar a última informação do processo
-
 - intent: opcao2
   examples: |
     - opcao2
     - Consultar a informação do corpo técnico
     - quero consultar a informação do corpo técnico
-
 - intent: opcao3
   examples: |
     - opcao3
     - Consultar a informação do Ministério Público de Contas
     - quero consultar a informação do Ministério Público de Contas
-
 - intent: opcao4
   examples: |
     - opcao4
@@ -159,15 +64,12 @@ nlu:
     - quero obter a decisão
     - quero consultar o acórdão
     - quero obter o acórdão
-
 - intent: opcao5
   examples: |
     - opcao5
     - quero obter dados para contato do setor atual do processo
-
 - intent: opcao6
   examples: |
     - opcao6
     - quero obter o contato do gabinete do Relator do processo
     - Qual o contato do gabinete do Relator?
-    

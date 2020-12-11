@@ -25,8 +25,17 @@ class DBCarregador():
         
         return ret_numero, ret_ano, ret_assunto, ret_relator, ret_maior_evento, ret_ultimo_evento, ret_ultimo_setor, ret_contato_setor, ret_contato_relator, ret_identificador_setor
 
-    def get_informacao(self, numero, ano):
-        pass
+    def get_informacoes_corpo_tecnico(self, numero, ano):
+        informacoes = self.df_processos[(self.df_processos['numero_processo'] == int(
+            numero)) & (self.df_processos['ano_processo'] == int(ano)) & (self.df_processos['IdentificadorSetor'] == 'UT')][['resumo','setor','evento']]
+        return informacoes
+
+    def get_informacao_corpo_tecnico(self, numero, ano, evento):
+        arquivo = self.df_processos[(self.df_processos['numero_processo'] == int(
+            numero)) & (self.df_processos['ano_processo'] == int(ano)) 
+            & (self.df_processos['IdentificadorSetor'] == 'UT')
+            & (self.df_processos['evento'] == int(evento))][['NomeArquivo']].iloc[0]
+        return arquivo
 
     def get_contato_setor(self, id_setor):
         pass

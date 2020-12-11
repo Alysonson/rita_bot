@@ -2,13 +2,8 @@ version: "2.0"
 
 rules:
 
-- rule: Sempre finalize quando o usuario disser tchau
+- rule: Diga ola sempre que o usuario disser ola
   steps:
-  - intent: despedir
-  - action: utter_despedir
-
-- rule: Sempre pergunte o numero do processo
-  steps:
-  - intent: consultar_processo
-  - action: utter_qual_numero_processo
-
+  - intent: bem_vindo
+  - action: utter_bem_vindo
+  - action: utter_consultar_processo
