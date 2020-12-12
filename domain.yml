@@ -13,6 +13,14 @@ intents:
 - opcao4
 - opcao5
 - opcao6
+- despedir
+- ajuda
+- fora_do_escopo
+- elogios
+- afirmar
+- negar
+- cancelar
+- esqueci
 responses:
   utter_bem_vindo:
   - text: Olá! Meu nome é Rita, sua assistente virtual. Estou aqui para lhe ajudar
@@ -22,9 +30,11 @@ responses:
   utter_numero_processo:
   - text: Deseja consultar novo processo?
   utter_opcoes_eventos:
-  - text: Digite o número do evento que você deseja visualizar ou 0 para voltar ao menu anterior.
+  - text: Digite o número do evento que você deseja visualizar ou 0 para voltar ao
+      menu anterior.
   utter_nenhum_evento:
-  - text: Não encontrei informações para o processo selecionado. Gostaria de consultar outro processo?
+  - text: Não encontrei informações para o processo selecionado. Gostaria de consultar
+      outro processo?
   utter_quais_opcoes:
   - buttons:
     - payload: opcao1
@@ -42,6 +52,31 @@ responses:
     - payload: consultar_processo
       title: Consultar outro processo.
     text: O que você deseja?
+  utter_ajuda:
+  - text: Estou aqui para lhe ajudar a obter informações sobre processos em tramitação
+      no TCE/RN.
+  utter_despedir:
+  - text: "Foi um prazer te ajudar!\nSempre que precisar de mais informações sobre\
+      \ processos, volte aqui! Até logo!"
+  - text: "Foi um prazer te ajudar!\nSempre que precisar, volte aqui! Até a próxima!"
+  - text: "Foi um prazer te ajudar!\nQuando surgir alguma dúvida, volte aqui! Até\
+      \ mais!"
+  utter_fallback:
+  - text: Desculpe, ainda não sei falar sobre isso ou talvez não tenha entendido muito
+      bemVocê pode perguntar de novo de outro jeito?
+  - text: Hummmm... Não sei se entendi. Pode escrever de outra forma?
+  - text: Acho que não te entendi, você pode me perguntar de novo usando outras palavras?
+  - text: Vamos tentar mais uma vez? Eu não consegui te entender direito, me pergunta
+      de outro jeito?
+  utter_elogios:
+  - text: Obrigada! É sempre bom dar e receber elogios ;)
+  utter_continuar_conversa:
+  - text: Gostaria de saber algo mais?
+  utter_cancelar:
+  - text: Ok! Cancelei a operação.
+  utter_esqueci:
+  - text: Neste caso, infelizmente não posso te ajudar sem essa informação.
+  - text: Então, quando tiver a informação, me procure.
 actions:
 - action_localizar_processo
 - action_ultima_informacao

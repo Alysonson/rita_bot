@@ -73,3 +73,106 @@ nlu:
     - opcao6
     - quero obter o contato do gabinete do Relator do processo
     - Qual o contato do gabinete do Relator?
+
+- intent: despedir
+  examples: |
+    - tchau
+    - adeus
+    - vlw
+    - flw
+    - até mais, bot
+    - bye
+
+- intent: fora_do_escopo
+  examples: |
+    - voce fala sobre o meio ambiente
+    - qual a origem do mundo
+    - vc gosta de carnaval
+    - batatinha quando nasce
+    - imbecil
+    - chata
+    - babaca
+    - bot feia
+    - bot, burra
+
+- intent: elogios
+  examples: |
+    - voce e muito educada
+    - me ajudou muito
+    - voce e demais
+    - voce e linda
+    - voce e maravilhosa
+    - vc e demais
+    - adorei voce
+    - amei voce
+    - adorei vc
+    - amei vc
+
+- intent: negar
+  examples: |
+    - nao
+    - nao quero
+    - escolhi errado
+    - falei errado
+    - duvida
+    - nao sei
+    - nenhum
+    - nao tenho
+
+- intent: ajuda
+  examples: |
+    - sobre o que voce sabe falar
+    - o que mais voce sabe falar
+    - quais assuntos voce fala
+    - o que voce sabe
+    - lista de assuntos possiveis
+    - quais as perguntas vc responde
+    - quais as perquisar voce responde
+    - quero ajuda
+    - meajuda
+    - meajude
+    - MEAJDA
+    - me ajuda
+    - me ajude
+    - ajuda eu
+    - menu
+
+- intent: afirmar
+  examples: |
+    - sim
+    - confirmo
+    - afirmo
+    - claro
+    - exato
+    - isso mesmo
+
+- intent: negar
+  examples: |
+    - nao
+    - nego
+    - cancelo
+    - negativo
+
+- intent: cancelar
+  examples: |
+    - desisto
+    - para
+    - cancela
+    - sai disso
+    - me tira daqui
+    - para com isso
+    - me tira disso
+    - quero cancelar
+    - saia dessa conversa
+    - nao quero mais isso
+    - cancele esta operacao
+    - nao quero compartilhar meus dados
+    - nao quero mais informar meus dados
+
+- intent: esqueci
+  examples: |
+    - esqueci
+    - não lembro
+    - me fugiu a memoria
+    - não sei
+    - me recordo

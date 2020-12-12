@@ -7,3 +7,8 @@ rules:
   - intent: bem_vindo
   - action: utter_bem_vindo
   - action: utter_consultar_processo
+
+- rule: Sempre finalize quando o usuario disser tchau
+  steps:
+  - intent: despedir
+  - action: utter_despedir

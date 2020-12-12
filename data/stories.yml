@@ -59,3 +59,42 @@ stories:
   - intent: opcao6
   - action: action_contato_gabinete_relator
   - action: utter_quais_opcoes
+
+
+- story: despedir
+  steps:
+  - intent: despedir
+  - action: utter_despedir
+
+- story: fallback
+  steps:
+  - intent: fora_do_escopo
+  - action: utter_fallback
+
+- story: elogios
+  steps:
+  - intent: elogios
+  - action: utter_elogios
+  - action: utter_continuar_conversa   
+  - intent: negar
+  - action: utter_despedir
+
+- story: ajuda
+  steps:
+  - intent: ajuda
+  - action: utter_ajuda
+  - action: utter_consultar_processo
+
+- story: cancelar
+  steps:
+  - intent: cancelar
+  - action: utter_cancelar
+  - action: utter_continuar_conversa
+  - intent: negar
+  - action: utter_despedir  
+
+- story: esqueci
+  steps:
+  - intent: esqueci
+  - action: utter_esqueci
+  - action: utter_continuar_conversa
