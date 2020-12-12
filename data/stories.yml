@@ -9,7 +9,6 @@ stories:
   - action: utter_consultar_processo
   - intent: numero_processo
   - action: action_localizar_processo
-  - action: utter_quais_opcoes
 
 
 - story: consultar processo
@@ -32,23 +31,22 @@ stories:
   steps:
   - intent: opcao2
   - action: action_informacoes_corpo_tecnico
-
-- story: evento_opcoes
-  steps:
   - intent: numero_evento
   - action: action_informacao_corpo_tecnico
 
 - story: opcao3
   steps:
   - intent: opcao3
-  - action: action_informacao_mptc
-  - action: utter_quais_opcoes
+  - action: action_informacoes_mp
+  - intent: numero_evento
+  - action: action_informacao_mp
 
 - story: opcao4
   steps:
   - intent: opcao4
   - action: action_decisoes
-  - action: utter_quais_opcoes
+  - intent: numero_evento
+  - action: action_decisao
 
 - story: opcao5
   steps:
