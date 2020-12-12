@@ -24,7 +24,7 @@ responses:
   utter_opcoes_eventos:
   - text: Digite o número do evento que você deseja visualizar ou 0 para voltar ao menu anterior.
   utter_nenhum_evento:
-  - text: Não encontrei informações do corpo técnico para o processo selecionado. Gostaria de consultar outro processo?
+  - text: Não encontrei informações para o processo selecionado. Gostaria de consultar outro processo?
   utter_quais_opcoes:
   - buttons:
     - payload: opcao1
@@ -47,8 +47,9 @@ actions:
 - action_ultima_informacao
 - action_informacoes_corpo_tecnico
 - action_informacao_corpo_tecnico
-- action_informacoes_mptc
-- action_informacao_mptc
+- action_informacoes_mp
+- action_informacao_mp
 - action_decisoes
+- action_decisao
 - action_contato_setor_atual
 - action_contato_gabinete_relator
