@@ -64,7 +64,7 @@ class ActionLocalizarProcesso(Action):
         if self.numero and self.ano:
             dados_usuarios[tracker.sender_id] = {"numero_processo":self.numero, "ano_processo":self.ano}
             try:
-                ret_numero, ret_ano, ret_assunto, ret_relator, ret_maior_evento, ret_ultimo_evento, ret_ultimo_setor, ret_ultimo_arquivo, ret_contato_setor, ret_contato_relator, ret_identificador_setor = db.get_processo(self.numero, self.ano)
+                ret_numero, ret_ano, ret_assunto, ret_relator, ret_jurisdicionado, ret_maior_evento, ret_ultimo_evento, ret_ultimo_setor, ret_ultimo_arquivo, ret_contato_setor, ret_contato_relator, ret_identificador_setor = db.get_processo(self.numero, self.ano)
 
                 dados_usuarios[tracker.sender_id]['assunto'] = ret_assunto
                 dados_usuarios[tracker.sender_id]['relator'] = ret_relator
@@ -76,8 +76,8 @@ class ActionLocalizarProcesso(Action):
                 dados_usuarios[tracker.sender_id]['contato_relator'] = ret_contato_relator
                 dados_usuarios[tracker.sender_id]['identificador_setor'] = ret_identificador_setor
 
-                dispatcher.utter_message(text="O processo de número {}, ano {}, assunto {}, encontra-se atualmente no Gabinete do(a) Conselheiro(a) {}. Seu último evento é o de número {}. Sua última informação é: {}. O setor atual é {}, contato {}. ".format(
-                    ret_numero, ret_ano, ret_assunto, ret_relator, ret_maior_evento, ret_ultimo_evento, ret_ultimo_setor, ret_contato_setor))
+                dispatcher.utter_message(text="Processo nº: {}/{}\n\nJurisdicionado: {}\n\nAssunto: {}\n\nRelator(a): Conselheiro(a) {}\n\nÚltimo Evento: nº {} - {}.\n\nSetor Atual: {} - contato {}. ".format(
+                    ret_numero, ret_ano, ret_jurisdicionado, ret_assunto, ret_relator, ret_maior_evento, ret_ultimo_evento, ret_ultimo_setor, ret_contato_setor))
                 dispatcher.utter_message(template='utter_quais_opcoes')
                 #dispatcher.utter_template('utter_quais_opcoes', tracker)
             except:
@@ -99,9 +99,10 @@ class ActionUltimaInformacao(Action):
         try:
             link_arquivo = "http://localhost/{}".format(dados_usuarios[tracker.sender_id]['ultimo_arquivo'])
         
-            dispatcher.utter_message(text="A última peça juntada ao processo {}/{} foi {} pelo setor {}.".format(
+            dispatcher.utter_message(text="A última peça juntada ao processo {}/{} foi 'Evento {} - {}', cadastrada pelo setor {}.".format(
                 dados_usuarios[tracker.sender_id]['numero_processo'],
                 dados_usuarios[tracker.sender_id]['ano_processo'],
+                dados_usuarios[tracker.sender_id]['maior_evento'],
                 dados_usuarios[tracker.sender_id]['ultimo_evento'],
             dados_usuarios[tracker.sender_id]['ultimo_setor']))
             dispatcher.utter_message(text="Encontrei o arquivo {}".format(link_arquivo))

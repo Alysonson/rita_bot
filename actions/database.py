@@ -16,6 +16,7 @@ class DBCarregador():
         ret_ano = processo['ano_processo'].values[0]
         ret_assunto = processo['assunto'].values[0]
         ret_relator = processo['relator'].values[0]
+        ret_jurisdicionado = processo['jurisdicionado'].values[0]
         ret_maior_evento = max(processo['evento'].values)
         ret_ultimo_evento = processo['resumo'].values[-1]
         ret_ultimo_setor = processo['setor'].values[-1]
@@ -23,8 +24,8 @@ class DBCarregador():
         ret_contato_setor = processo['ContatoSetor'].values[-1]
         ret_contato_relator = processo['ContatoRelator'].values[-1]
         ret_identificador_setor = processo['IdentificadorSetor'].values[-1]
-        
-        return ret_numero, ret_ano, ret_assunto, ret_relator, ret_maior_evento, ret_ultimo_evento, ret_ultimo_setor, ret_ultimo_arquivo, ret_contato_setor, ret_contato_relator, ret_identificador_setor
+      
+        return ret_numero, ret_ano, ret_assunto, ret_relator, ret_jurisdicionado, ret_maior_evento, ret_ultimo_evento, ret_ultimo_setor, ret_ultimo_arquivo, ret_contato_setor, ret_contato_relator, ret_identificador_setor
 
     def get_informacoes_corpo_tecnico(self, numero, ano):
         return self.get_informacoes(numero, ano, 'UT')

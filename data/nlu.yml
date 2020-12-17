@@ -10,6 +10,7 @@ nlu:
     - boa tarde
     - alguem
     - iai
+
 - intent: consultar_processo
   examples: |
     - gostaria de consultar um processo
@@ -18,6 +19,7 @@ nlu:
     - consultar processo
     - meu processo
     - ver processo
+
 - intent: numero_processo
   examples: |
     - 003054/2020
@@ -25,6 +27,7 @@ nlu:
     - 100100/2020
     - 01/2020
     - 123/2017
+
 - intent: numero_evento
   examples: |
     - 3
@@ -32,10 +35,16 @@ nlu:
     - 10
     - 23
     - 7
+
 - intent: quais_opcoes
   examples: |
-    - quais são as opções
+    - quais_opcoes
+    - quais são as opções?
     - quais opções eu tenho?
+    - quero voltar ao menu de opções
+    - Voltar
+    - Volta
+
 - intent: opcao1
   examples: |
     - opcao1
@@ -43,16 +52,19 @@ nlu:
     - quero consultar a última informação
     - consultar a última informação
     - consultar a última informação do processo
+
 - intent: opcao2
   examples: |
     - opcao2
     - Consultar a informação do corpo técnico
     - quero consultar a informação do corpo técnico
+
 - intent: opcao3
   examples: |
     - opcao3
     - Consultar a informação do Ministério Público de Contas
     - quero consultar a informação do Ministério Público de Contas
+
 - intent: opcao4
   examples: |
     - opcao4
@@ -64,10 +76,12 @@ nlu:
     - quero obter a decisão
     - quero consultar o acórdão
     - quero obter o acórdão
+
 - intent: opcao5
   examples: |
     - opcao5
     - quero obter dados para contato do setor atual do processo
+
 - intent: opcao6
   examples: |
     - opcao6
