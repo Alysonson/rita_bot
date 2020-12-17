@@ -56,10 +56,9 @@ class ActionLocalizarProcesso(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
         processo_id = tracker.latest_message['text']
-        print(processo_id)
 
         self.numero, self.ano = self.separar_numero_ano(processo_id)
-        print(self.numero)
+        print("%s %s" % (self.numero, self.ano))
         
         if self.numero and self.ano:
             dados_usuarios[tracker.sender_id] = {"numero_processo":self.numero, "ano_processo":self.ano}
@@ -68,6 +67,7 @@ class ActionLocalizarProcesso(Action):
 
                 dados_usuarios[tracker.sender_id]['assunto'] = ret_assunto
                 dados_usuarios[tracker.sender_id]['relator'] = ret_relator
+                dados_usuarios[tracker.sender_id]['jurisdicionado'] = ret_jurisdicionado
                 dados_usuarios[tracker.sender_id]['maior_evento'] = ret_maior_evento
                 dados_usuarios[tracker.sender_id]['ultimo_evento'] = ret_ultimo_evento
                 dados_usuarios[tracker.sender_id]['ultimo_setor'] = ret_ultimo_setor
@@ -80,9 +80,10 @@ class ActionLocalizarProcesso(Action):
                     ret_numero, ret_ano, ret_jurisdicionado, ret_assunto, ret_relator, ret_maior_evento, ret_ultimo_evento, ret_ultimo_setor, ret_contato_setor))
                 dispatcher.utter_message(template='utter_quais_opcoes')
                 #dispatcher.utter_template('utter_quais_opcoes', tracker)
-            except:
+            except Exception as e: 
                 dispatcher.utter_message(text="Não encontrei o seu processo, procurei pelo processo ({}).".format(processo_id))
                 dispatcher.utter_message(template='utter_numero_processo')
+                print(e)
         else:
             dispatcher.utter_message(text="Não encontrei processo com os termos selecionados.")
         return []
@@ -99,16 +100,14 @@ class ActionUltimaInformacao(Action):
         try:
             link_arquivo = "http://localhost/{}".format(dados_usuarios[tracker.sender_id]['ultimo_arquivo'])
         
-            dispatcher.utter_message(text="A última peça juntada ao processo {}/{} foi 'Evento {} - {}', cadastrada pelo setor {}.".format(
+            dispatcher.utter_message(text="A última peça juntada ao processo {}/{} foi {} pelo setor {}.".format(
                 dados_usuarios[tracker.sender_id]['numero_processo'],
                 dados_usuarios[tracker.sender_id]['ano_processo'],
-                dados_usuarios[tracker.sender_id]['maior_evento'],
                 dados_usuarios[tracker.sender_id]['ultimo_evento'],
             dados_usuarios[tracker.sender_id]['ultimo_setor']))
             dispatcher.utter_message(text="Encontrei o arquivo {}".format(link_arquivo))
         except:
             dispatcher.utter_message(text="Erro")
-            print("Aqui erro")
 
         return []
 
@@ -122,7 +121,6 @@ class ActionInformacoesCorpoTecnico(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
         informacoes = db.get_informacoes_corpo_tecnico(dados_usuarios[tracker.sender_id]['numero_processo'], dados_usuarios[tracker.sender_id]['ano_processo'])
-        print(informacoes)
 
         if len(informacoes):
             texto_resposta = "Os eventos encontrados são os seguintes:\n\n"
@@ -135,7 +133,7 @@ class ActionInformacoesCorpoTecnico(Action):
                 dispatcher.utter_message(text="Erro")
         else:
             dispatcher.utter_message(template="utter_nenhum_evento")
-            dispatcher.utter_message(template="utter_numero_processo")
+            #dispatcher.utter_message(template="utter_numero_processo")
 
         return []
 
@@ -147,16 +145,14 @@ class ActionInformacaoCorpoTecnico(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
-        evento = tracker.latest_message['text']
-        arquivo = db.get_informacao_corpo_tecnico(dados_usuarios[tracker.sender_id]['numero_processo'], dados_usuarios[tracker.sender_id]['ano_processo'], evento)
-        link_arquivo = "http://localhost/{}".format(arquivo)
-
         try:
+            evento = tracker.latest_message['text']
+            arquivo = db.get_informacao_corpo_tecnico(dados_usuarios[tracker.sender_id]['numero_processo'], dados_usuarios[tracker.sender_id]['ano_processo'], evento)
+            link_arquivo = "http://localhost/{}".format(arquivo)
             dispatcher.utter_message(text="Encontrei o arquivo {}".format(link_arquivo))
             dispatcher.utter_message(template="utter_numero_processo")
         except:
-            dispatcher.utter_message(
-                text="Erro")
+            dispatcher.utter_message(text="Não consegui encontrar a informação solicitada")
             dispatcher.utter_message(template="utter_numero_processo")
 
         return []
@@ -169,8 +165,8 @@ class ActionInformacoesMP(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
+        print("Action MP")
         informacoes = db.get_informacoes_mp(dados_usuarios[tracker.sender_id]['numero_processo'], dados_usuarios[tracker.sender_id]['ano_processo'])
-        print(informacoes)
 
         if len(informacoes):
             texto_resposta = "Os eventos encontrados são os seguintes:\n\n"
@@ -183,7 +179,7 @@ class ActionInformacoesMP(Action):
                 dispatcher.utter_message(text="Erro")
         else:
             dispatcher.utter_message(template="utter_nenhum_evento")
-            dispatcher.utter_message(template="utter_numero_processo")
+            #dispatcher.utter_message(template="utter_numero_processo")
 
         return []
 
@@ -195,15 +191,14 @@ class ActionInformacaoMP(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
-        evento = tracker.latest_message['text']
-        arquivo = db.get_informacao_mp(dados_usuarios[tracker.sender_id]['numero_processo'], dados_usuarios[tracker.sender_id]['ano_processo'], evento)
-        link_arquivo = "http://localhost/{}".format(arquivo)
-
         try:
+            evento = tracker.latest_message['text']
+            arquivo = db.get_informacao_mp(dados_usuarios[tracker.sender_id]['numero_processo'], dados_usuarios[tracker.sender_id]['ano_processo'], evento)
+            link_arquivo = "http://localhost/{}".format(arquivo)
             dispatcher.utter_message(text="Encontrei o arquivo {}".format(link_arquivo))
             dispatcher.utter_message(template="utter_numero_processo")
         except:
-            dispatcher.utter_message(text="Erro")
+            dispatcher.utter_message(text="Não consegui encontrar a informação solicitada")
             dispatcher.utter_message(template="utter_numero_processo")
 
         return []
@@ -217,6 +212,7 @@ class ActionDecisoes(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        print("Action Decisoes")
         decisoes = db.get_decisoes(dados_usuarios[tracker.sender_id]['numero_processo'], dados_usuarios[tracker.sender_id]['ano_processo'])
 
         if len(decisoes):
@@ -230,7 +226,7 @@ class ActionDecisoes(Action):
                 dispatcher.utter_message(text="Erro")
         else:
             dispatcher.utter_message(template="utter_nenhum_evento")
-            dispatcher.utter_message(template="utter_numero_processo")
+            #dispatcher.utter_message(template="utter_numero_processo")
             
 
         return []
@@ -244,15 +240,14 @@ class ActionDecisao(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
-        evento = tracker.latest_message['text']
-        arquivo = db.get_decisao(dados_usuarios[tracker.sender_id]['numero_processo'], dados_usuarios[tracker.sender_id]['ano_processo'], evento)
-        link_arquivo = "http://localhost/{}".format(arquivo)
-
         try:
+            evento = tracker.latest_message['text']
+            arquivo = db.get_decisao(dados_usuarios[tracker.sender_id]['numero_processo'], dados_usuarios[tracker.sender_id]['ano_processo'], evento)
+            link_arquivo = "http://localhost/{}".format(arquivo)
             dispatcher.utter_message(text="Encontrei o arquivo {}".format(link_arquivo))
             dispatcher.utter_message(template="utter_numero_processo")
         except:
-            dispatcher.utter_message(text="Erro")
+            dispatcher.utter_message(text="Não consegui encontrar a informação solicitada")
             dispatcher.utter_message(template="utter_numero_processo")
 
         return []

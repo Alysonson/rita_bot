@@ -7,10 +7,7 @@ class DBCarregador():
         #self.df_contatos_setor = pd.read_csv("data/contatos_setor.csv", sep=";")
 
     def get_processo(self, numero, ano):
-        print(numero)
-        print(ano)
-        processo = self.df_processos[(self.df_processos['numero_processo'] == int(
-            numero)) & (self.df_processos['ano_processo'] == int(ano))]
+        processo = self.df_processos[(self.df_processos['numero_processo'] == int(numero)) & (self.df_processos['ano_processo'] == int(ano))]
 
         ret_numero = processo['numero_processo'].values[0]
         ret_ano = processo['ano_processo'].values[0]
